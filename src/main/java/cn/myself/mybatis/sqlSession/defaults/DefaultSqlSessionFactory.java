@@ -1,6 +1,9 @@
 package cn.myself.mybatis.sqlSession.defaults;
 
 import java.io.InputStream;
+import java.lang.reflect.Method;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.util.HashMap;
@@ -16,6 +19,7 @@ import org.dom4j.Element;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
+import cn.myself.mybatis.annotations.Select;
 import cn.myself.mybatis.io.Resources;
 import cn.myself.mybatis.mappers.Mapper;
 import cn.myself.mybatis.sqlSession.SqlSession;
@@ -112,9 +116,10 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 					//7.加载mapper进行解析并返回mapper
 					mappers = loadXMLMapperConfig(mapperPath);
 				} else {//判断是class和url
+					System.out.println("注解方式");
 					//注解方式
 					String daoClassPath = mapperElement.attributeValue("class");
-					////7.加载mapper进行解析并返回mapper
+					//7.加载mapper进行解析并返回mapper
 					mappers = loadAnnotationMapperConfig(daoClassPath);
 				}
 				//8.为sqlSession的映射信息属性赋值
@@ -177,9 +182,42 @@ public class DefaultSqlSessionFactory implements SqlSessionFactory {
 	/*
 	 * 注解方式：解析配置
 	 */
-	private Map<String, Mapper> loadAnnotationMapperConfig(String daoClassPath) {
-		// TODO Auto-generated method stub
-		return null;
+	private Map<String, Mapper> loadAnnotationMapperConfig(String daoClassPath) throws Exception {
+		Map<String, Mapper> map = new HashMap<>();
+		//1.根据路径获取class字节码对象
+		Class daoClass = Class.forName(daoClassPath);
+		String calssName = daoClass.getName();
+		//2.获取其中所有方法
+		Method[] methods = daoClass.getMethods();
+		//3.遍历判断是否有指定注解
+		for (Method method : methods) {
+			boolean isAnnotation = method.isAnnotationPresent(Select.class);
+			if (!isAnnotation) {
+				continue;
+			} 
+			String mathodName = method.getName();
+			//4.得到map中的key
+			String key = calssName.concat(".").concat(mathodName);
+			Select select = method.getAnnotation(Select.class);
+			//5.得到map中的value 即mapper
+			Mapper mapper = new Mapper();
+			//得到sql语句
+			String querySql = select.value();
+			mapper.setQueryString(querySql);
+			//得到返回值类型全限定名称
+			Type type = method.getGenericReturnType();
+			if (type instanceof ParameterizedType) {
+				ParameterizedType ptype = (ParameterizedType) type;
+				Type[] types = ptype.getActualTypeArguments();
+				Class domainClass = (Class) types[0];
+				//给mapper中的resultType赋值
+				mapper.setResultType(domainClass.getName());
+			}
+			//6.添加到map
+			map.put(key, mapper);
+		}
+		//7.返回
+		return map;
 	}
 
 	/*

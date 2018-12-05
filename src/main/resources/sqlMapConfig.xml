@@ -21,6 +21,9 @@
 	<!-- 在主配置文件目录下创建和对应dao的java文件一样的目录和名称的xml文件 -->
 	<!-- 映射器 使用相对于类路径的资源引用 -->
 	<mappers>
-		<mapper resource="cn/nzp/dao/IUserDao.xml"/>
+		<!-- xml方式 -->
+		<!-- <mapper resource="cn/nzp/dao/IUserDao.xml"/> -->
+		<!-- 注解方式 -->
+		<mapper class="cn.nzp.dao.IUserDao"/>
 	</mappers>
 </configuration>
