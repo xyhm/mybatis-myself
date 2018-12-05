@@ -1,8 +1,8 @@
-package cn.itcast.dao;
+package cn.nzp.dao;
 
 import java.util.List;
 
-import cn.itcast.domain.User;
+import cn.nzp.domain.User;
 
 /**
  * 数据访问层接口

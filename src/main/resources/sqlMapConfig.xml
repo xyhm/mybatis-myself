@@ -9,7 +9,7 @@
 	<environments default="local">
 		<environment id="local">
 			<transactionManager type="JDBC"></transactionManager>
-			<dataSource type="POOLED">
+			<dataSource type="UNPOOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver"/>
 				<property name="url" value="jdbc:mysql://localhost:3306/test"/>
 				<property name="username" value="root"/>
@@ -21,6 +21,6 @@
 	<!-- 在主配置文件目录下创建和对应dao的java文件一样的目录和名称的xml文件 -->
 	<!-- 映射器 使用相对于类路径的资源引用 -->
 	<mappers>
-		<mapper resource="cn/itcast/dao/IUserDao.xml"/>
+		<mapper resource="cn/nzp/dao/IUserDao.xml"/>
 	</mappers>
 </configuration>

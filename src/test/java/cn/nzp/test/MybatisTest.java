@@ -1,17 +1,17 @@
-package cn.itcast.test;
+package cn.nzp.test;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.apache.ibatis.io.Resources;
-import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
 
-import cn.itcast.dao.IUserDao;
-import cn.itcast.domain.User;
+import cn.myself.mybatis.io.Resources;
+import cn.myself.mybatis.sqlSession.SqlSession;
+import cn.myself.mybatis.sqlSession.SqlSessionFactory;
+import cn.myself.mybatis.sqlSession.SqlSessionFactoryBuilder;
+import cn.nzp.dao.IUserDao;
+import cn.nzp.domain.User;
 
 /**
  * mybatis框架环境测试类

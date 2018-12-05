@@ -1,4 +1,4 @@
-package cn.itcast.domain;
+package cn.nzp.domain;
 
 import java.util.Date;
 
@@ -11,15 +11,15 @@ import java.util.Date;
 public class User {
 
 	private int id;
-	private String userName;
+	private String username;
 	private Date birthday;
 	private String sex;
 	private String address;
 
-	public User(int id, String userName, Date birthday, String sex, String address) {
+	public User(int id, String username, Date birthday, String sex, String address) {
 		super();
 		this.id = id;
-		this.userName = userName;
+		this.username = username;
 		this.birthday = birthday;
 		this.sex = sex;
 		this.address = address;
@@ -37,12 +37,12 @@ public class User {
 		this.id = id;
 	}
 
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public Date getBirthday() {
@@ -71,7 +71,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", userName=" + userName + ", birthday=" + birthday + ", sex=" + sex + ", address="
+		return "User [id=" + id + ", username=" + username + ", birthday=" + birthday + ", sex=" + sex + ", address="
 				+ address + "]";
 	}
 

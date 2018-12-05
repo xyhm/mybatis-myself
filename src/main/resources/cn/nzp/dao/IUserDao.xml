@@ -5,9 +5,9 @@
   
  <!-- mapper映射文件 -->
  <!-- namespace指定执行哪个类中的方法 -->
-<mapper namespace="cn.itcast.dao.IUserDao">
+<mapper namespace="cn.nzp.dao.IUserDao">
 	<!-- id执行方法的名称 resultType只需要指定实体类全限定类名即可-->
-	<select id="selectAllUser" resultType="cn.itcast.domain.User">
+	<select id="selectAllUser" resultType="cn.nzp.domain.User">
 		select * from user
 	</select>
 </mapper>
